@@ -34,42 +34,30 @@
             <div v-if="status == 'Berhasil'" >
                 <input disabled="true" v-model="angkaTebak" placeholder="Masukkan Angka...."/>
                 <button disabled="true" @click="cek">Tebak</button>
+                <p>Anda Berhasil Menebak</p>
+                <button @click="mainlagi">Main Lagi</button>
             </div>
             <div v-else-if="status == 'Salah'" >
                 <input disabled="true" v-model="angkaTebak" placeholder="Masukkan Angka...."/>
                 <button disabled="true" @click="cek">Tebak</button>
+                <p>Anda Salah Menebak, Kesempatan Anda tinggal {{ kesempatan }}</p>
+                <p>Ayo coba Lagi</p>
+                <button @click="cobalagi">Coba Lagi</button>
             </div>
             <div v-else-if="status == 'Gagal'" >
                 <input disabled="true" v-model="angkaTebak" placeholder="Masukkan Angka...."/>
                 <button disabled="true" @click="cek">Tebak</button>
+                <p>Anda Salah Menebak, Kesempatan Anda Sudah Habis</p>
+                <p>Ayo Main Lagi</p>
+                <button @click="mainlagi">Main Lagi</button>
             </div>
             <div v-else>
                 <input  v-model="angkaTebak" placeholder="Masukkan Angka...."/>
                 <button @click="cek">Tebak</button>
             </div>
-
-            
-            <div v-if="status == 'Berhasil'">
-                <p>Anda Berhasil Menebak, Kesempatan Anda tinggal {{ kesempatan }}</p>
-                <button @click="mainlagi">Main Lagi</button>
-            </div>
-
-            <div v-else-if="status == 'Salah'">
-                <p>Anda Salah Menebak, Kesempatan Anda tinggal {{ kesempatan }}</p>
-                <p>Ayo coba Lagi</p>
-                <button @click="cobalagi">Coba Lagi</button>
-            </div>
-
-            <div v-else-if="status == 'Gagal'">
-                <p>Anda Salah Menebak, Kesempatan Anda Sudah Habis</p>
-                <p>Ayo Main Lagi</p>
-                <button @click="mainlagi">Main Lagi</button>
-            </div>
-
             <footer>
                 {{footer.nama}} | {{footer.npm}} | {{footer.kelas}}
-            </footer>
-            
+            </footer> 
        </div>   
     </body>
 
