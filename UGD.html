@@ -5,18 +5,72 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>UGD</title> 
         <script src="vue.js"></script>
+        <style>
+            footer {
+                position: fixed;
+                left: 0;
+                bottom: 0;
+                height: 10%;
+                width: 100%;
+                background-color: red;
+                color: white;
+                text-align: center;
+            }
+
+            .content{
+               max-width: 700px;
+               margin: auto;
+               align-items: center;
+               justify-content: center;
+               text-align: center;
+            }
+        </style>
     </head>
     <body>
-       <div id="app">
+       <div id="app" class="content">
             <h1>{{ judul }}</h1>
-            <input v-model="angkaTebak" placeholder="Masukkan Angka...."/>
-            <br><br>
-            <button @click="tebakAngka()">Tebak</button>
+            <h2>{{ angkaRandom}} </h2>
+
+            <div v-if="status == 'Berhasil'" >
+                <input disabled="true" v-model="angkaTebak" placeholder="Masukkan Angka...."/>
+                <button disabled="true" @click="cek">Tebak</button>
+            </div>
+            <div v-else-if="status == 'Salah'" >
+                <input disabled="true" v-model="angkaTebak" placeholder="Masukkan Angka...."/>
+                <button disabled="true" @click="cek">Tebak</button>
+            </div>
+            <div v-else-if="status == 'Gagal'" >
+                <input disabled="true" v-model="angkaTebak" placeholder="Masukkan Angka...."/>
+                <button disabled="true" @click="cek">Tebak</button>
+            </div>
+            <div v-else>
+                <input  v-model="angkaTebak" placeholder="Masukkan Angka...."/>
+                <button @click="cek">Tebak</button>
+            </div>
+
+            
+            <div v-if="status == 'Berhasil'">
+                <p>Anda Berhasil Menebak, Kesempatan Anda tinggal {{ kesempatan }}</p>
+                <button @click="mainlagi">Main Lagi</button>
+            </div>
+
+            <div v-else-if="status == 'Salah'">
+                <p>Anda Salah Menebak, Kesempatan Anda tinggal {{ kesempatan }}</p>
+                <p>Ayo coba Lagi</p>
+                <button @click="cobalagi">Coba Lagi</button>
+            </div>
+
+            <div v-else-if="status == 'Gagal'">
+                <p>Anda Salah Menebak, Kesempatan Anda Sudah Habis</p>
+                <p>Ayo Main Lagi</p>
+                <button @click="mainlagi">Main Lagi</button>
+            </div>
+
             <footer>
                 {{footer.nama}} | {{footer.npm}} | {{footer.kelas}}
             </footer>
-       </div>
-      
+            
+       </div>   
     </body>
 
     <script>
@@ -24,10 +78,11 @@
             el: '#app',
             data: {
                 judul : "Tebak Angka",
-                angkaTebak: "",
+                angkaTebak: -1,
                 angkaRandom: Math.floor((Math.random() * 10) + 1),
                 status: "",
                 kesempatan: 3,
+
                 footer:{
                     nama:"Filbert",
                     npm:"180709901",
@@ -35,13 +90,26 @@
                 },
             },
             methods: {
-                tebakAngka() {
+                cek() {
                    if(this.angkaRandom == this.angkaTebak){
-                       this.kesempatan--;
+                       this.status = "Berhasil";
+                       this.kesempatan = 3;
                    }else{
-                        this.kesempatan= 3;
+                        if(this.kesempatan !=1){
+                            this.status = "Salah";
+                            this.kesempatan--;
+                        }else{
+                            this.status = "Gagal";
+                        }
+                        
                    }
-                },
+                },cobalagi(){
+                    this.status=""
+                },mainlagi(){
+                    this.angkaRandom= Math.floor((Math.random() * 10) + 1);
+                    this.status ="";
+                    this.kesempatan=3;
+                }
             },
         });
     </script>
