@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>UGD</title> 
+        <script src="vue.js"></script>
+    </head>
+    <body>
+       <div id="app">
+            <h1>{{ judul }}</h1>
+            <input v-model="angkaTebak" placeholder="Masukkan Angka...."/>
+            <br><br>
+            <button @click="tebakAngka()">Tebak</button>
+            <footer>
+                {{footer.nama}} | {{footer.npm}} | {{footer.kelas}}
+            </footer>
+       </div>
+      
+    </body>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                judul : "Tebak Angka",
+                angkaTebak: "",
+                angkaRandom: Math.floor((Math.random() * 10) + 1),
+                status: "",
+                kesempatan: 3,
+                footer:{
+                    nama:"Filbert",
+                    npm:"180709901",
+                    kelas:"Kelas PAW E"
+                },
+            },
+            methods: {
+                tebakAngka() {
+                   if(this.angkaRandom == this.angkaTebak){
+                       this.kesempatan--;
+                   }else{
+                        this.kesempatan= 3;
+                   }
+                },
+            },
+        });
+    </script>
+</html>
