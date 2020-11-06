@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>TGS</title> 
+        <script src="vue.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <style>
+            footer {
+                position: fixed;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                background-color: gray;
+                color: white;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+       <div id="app" class="container">
+        <section class="container-fluid justify-content-center" style="margin-top: 50px;">
+            <section class="row justify-content-center" >
+                <section class="col-12 col-sm-10 col-md-7">
+
+                    <form>
+                        <div class="form-group col-7-md-6">
+                            <label for="inputKegiatan">Kamu Mau Ngapain?</label>
+                            <input v-model="nama"
+                            type="text" class="form-control" id="inputKegiatan" placeholder="Hayo Mau Ngapain">
+                        </div>
+
+                        <div class="form-group col-7-md-4">
+                            <label for="inputKepentingan">Penting Gak Nih?</label>
+                            <select v-model="kepentingan" id="inputKepentingan" class="form-control">
+                            <option selected>Penting...</option>
+                            <option>Biasa</option>
+                            <option>Gak Penting</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-7-md-6">
+                            <label for="Catatan">Catatan</label>
+                            <input v-model="catatan" type="text" class="form-control" id="inputCatatan" placeholder="Kalau gak ada gak usah :p">
+                        </div>
+                        <button @click="reset" class="btn btn-primary">Reset</button>
+                        <button @click="addToDo" class="btn btn-primary">Simpan</button>
+                    </form>
+                    
+                    <ul v-for="(todo, index) in todolist" :key="index" style="margin-top: 50px;">
+                        <li>{{todo.namaKegiatan}}</li>
+                        <li>{{todo.kepentinganKegiatan}}</li>
+                        <li>{{todo.catatanKegiatan}}</li>
+                        <button @click="deleteToDo(todo)"class="btn btn-primary">Hapus</button>
+                    </ul> 
+                </section>
+            </section>
+        </section>
+            <footer>
+                {{footer.nama}} | {{footer.npm}} | {{footer.kelas}}
+            </footer> 
+       </div>   
+    </body>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                judul : "To Do List",
+                todolist :[],
+                nama:"",
+                kepentingan:"",
+                catatan:"",
+                footer:{
+                    nama:"Filbert",
+                    npm:"180709901",
+                    kelas:"Kelas PAW E"
+                },
+            },
+            methods: {
+                addToDo(e){
+                    this.todolist.push({
+                        namaKegiatan:this.nama,
+                        kepentinganKegiatan:this.kepentingan,
+                        catatanKegiatan:this.catatan,
+                    })
+                    this.nama = "";
+                    this.kepentingan = "";
+                    this.catatan = "";
+                    e.preventDefault();
+                },deleteToDo(todo){
+                    const todoIndex = this.todolist.indexOf(todo);
+                    this.todolist.splice(todoIndex, 1);
+                },reset(e){
+                    this.nama = "";
+                    this.kepentingan = "";
+                    this.catatan = "";
+                    e.preventDefault();
+                }
+            },
+        });
+    </script>
+</html>
